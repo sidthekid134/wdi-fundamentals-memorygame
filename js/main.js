@@ -3,7 +3,7 @@
   Capital One: Memory Game
 */
 
-// Initializing variables
+// Hold all the information to each card
 var cards = [
   {
     rank: "queen",
@@ -27,7 +27,16 @@ var cards = [
   }
 ];
 
+// Holds the rank of all the cards flipped around
 var cardsInPlay = [];
+
+// Resets the game back to the back of the card
+var resetCards = function (){
+  var gameBoard = document.getElementById("game-board");
+  gameBoard.innerHTML = "";
+  cardsInPlay = [];
+  createBoard();
+}
 
 // Checks to see if the two cards flipped are the same
 var checkForMatch = function (){
@@ -36,6 +45,7 @@ var checkForMatch = function (){
   }else{
     alert("Sorry, try again.");
   }
+resetCards();
 }
 
 // Does the processing when a user flips a card
@@ -43,10 +53,10 @@ var flipCard = function (){
   var cardId = this.getAttribute("data-id")
   cardsInPlay.push(cards[cardId].rank);
   this.setAttribute("src", cards[cardId].cardImage);
-  
+
   // If two cards have been flipped
   if(cardsInPlay.length === 2){
-    checkForMatch();
+    setTimeout(checkForMatch, 200)
   }
 
 }
